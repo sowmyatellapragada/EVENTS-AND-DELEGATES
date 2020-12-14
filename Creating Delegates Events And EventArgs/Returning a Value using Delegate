@@ -1,0 +1,47 @@
+using System;
+
+namespace Eventsandelegates
+{
+  
+    class Program
+    {
+        public delegate int HotelPerformanceHandler(int hours, WorkTpe workType);
+        static void Main(String[] args)
+        {
+            
+            HotelPerformanceHandler del1 = new HotelPerformanceHandler(HotelPerformance1);
+            HotelPerformanceHandler del2 = new HotelPerformanceHandler(HotelPerformance2);
+            HotelPerformanceHandler del3 = new HotelPerformanceHandler(HotelPerformance3);
+            del1 += del2 + del3;
+            int finalhours=del1(11, WorkTpe.Meeting);
+            Console.WriteLine(finalhours);
+        }
+        static void DoWork(HotelPerformanceHandler del)
+        {
+            del(5, WorkTpe.Meeting);
+        }
+        static int HotelPerformance1(int hours, WorkTpe workType)
+        {
+            Console.WriteLine("HotelPerformance1:"+hours.ToString());
+            return hours+ 1;
+        }
+
+        static int HotelPerformance2(int hours, WorkTpe workType)
+        {
+            Console.WriteLine("HotelPerformance2:"+hours.ToString());
+            return hours + 2;
+        }
+        static int HotelPerformance3(int hours, WorkTpe workType)
+        {
+            Console.WriteLine("HotelPerformance3:" + hours.ToString());
+            return hours + 3;
+        }
+        public enum WorkTpe
+        {
+            Meeting,
+            Order,
+            services
+        }
+  
+    }
+    }
