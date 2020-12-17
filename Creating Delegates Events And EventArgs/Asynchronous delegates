@@ -1,0 +1,52 @@
+amespace AsyncCallbackDelegate
+
+{
+
+    public delegate int MyDelegate(int x);
+
+    public class MyClass
+
+    {
+
+        public int MyMethod(int x)
+
+        {
+            Thread.Sleep(10000);
+
+            return x + x;
+
+        }
+
+    }
+
+    class Program
+
+    {
+
+        static void Main(string[] args)
+
+        {
+
+            MyClass myClass1 = new MyClass();
+
+            MyDelegate del = new MyDelegate(myClass1.MyMethod);
+
+            IAsyncResult async = del.BeginInvoke(5, new AsyncCallback(MyCallBack), null);
+
+            Console.WriteLine("Proccessing the Operation....");
+
+            Console.ReadLine();
+
+        }
+
+        static void MyCallBack(IAsyncResult async)
+
+        {
+
+            Console.WriteLine("Operation Complete);
+
+        }
+
+    }
+
+}
